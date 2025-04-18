@@ -1,4 +1,6 @@
 // pages/_app.js
+'use client'
+
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { supabase } from '../api'

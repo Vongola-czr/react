@@ -1,4 +1,6 @@
 // /pages/posts/[id].js
+'use client'
+
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
 import { supabase } from '../../api'
@@ -13,7 +15,15 @@ export default function Post({ post }) {
             <h1 className="text-5xl mt-4 font-semibold tracking-wide">{post.title}</h1>
             <p className="text-sm font-light my-4">by {post.user_email}</p>
             <div className="mt-8">
-                <ReactMarkdown className='prose' children={post.content} />
+            <ReactMarkdown
+        components={{
+            // 为 ReactMarkdown 的根元素添加 prose 类
+            p: ({node, ...props}) => <p className="prose" {...props} />
+        }}
+    >
+        {post.content}
+    </ReactMarkdown>
+                {/* <ReactMarkdown className='prose' children={post.content} /> */}
             </div>
         </div>
     )

@@ -1,4 +1,6 @@
 // pages/create-post.js
+'use client'
+
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { useRouter } from 'next/router'
@@ -18,7 +20,7 @@ function CreatePost() {
   }
   async function createNewPost() {
     if (!title || !content) return
-    const user = await supabase.auth.getUser()
+    const {data:{user}} = await supabase.auth.getUser()
     // const { data: { user } } = await supabase.auth.getUser()
     console.log(user,'0909');
     if (!user) {
@@ -28,13 +30,6 @@ function CreatePost() {
     }
     const id = uuid()
     post.id = id
-    // const { data } = await supabase
-    //   .from('posts')
-    //   .insert([
-    //       { title, content, user_id: user.id, user_email: user.email }
-    //   ])
-    //   .single()
-    // router.push(`/posts/${data.id}`)
 
     try {
       const { data, error } = await supabase
